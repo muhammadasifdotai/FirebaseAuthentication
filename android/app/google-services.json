@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270063276689",
+    "project_id": "fir-authentication-b5f56",
+    "storage_bucket": "fir-authentication-b5f56.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270063276689:android:4e001da0bb6398090d6530",
+        "android_client_info": {
+          "package_name": "com.awesomeproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiaWIF5eKnYPODpTn4qWGQnIT2AX73SRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
