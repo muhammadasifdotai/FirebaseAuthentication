@@ -7,10 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   StatusBar,
-  FlatList,
-  Alert,
 } from 'react-native';
-// import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 
 export default function App() {
@@ -37,7 +34,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar hidden={true} /> */}
+      <StatusBar hidden={true} />
       <View>
         <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>
           Metahub
