@@ -11,27 +11,42 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export default function SignupScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [name, setName] = useState('');
 
   const navigation = useNavigation();
 
   const handleSignup = async () => {
     try {
-      if (email.length > 0 && password.length > 0) {
-        const isUserCreated = await auth().createUserWithEmailAndPassword(
+      if (email.length > 0 && password.length > 0 && name.length > 0) {
+        const response = await auth().createUserWithEmailAndPassword(
           email,
           password,
         );
+
+        const userData = {
+          id: response.user.uid,
+          name: name,
+          email: email,
+        };
+
+        // adding data to the firesbase firestore
+        // .doc(response.user.uid): with the help of this line, q kay jub hum naya user create krtay hay to humay 'uid' bhi milti hay to wohi hum nay us ki 'uid' replace kr di hay 'doc' ki jagha.
+        await firestore()
+          .collection('users')
+          .doc(response.user.uid)
+          .set(userData);
 
         await auth().currentUser?.sendEmailVerification()
 
         await auth().signOut()
 
-        console.log(isUserCreated);
+        console.log(response);
 
         Alert.alert('please verify your email')
 
@@ -53,6 +68,12 @@ export default function SignupScreen() {
         <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>
           Metahub
         </Text>
+        <TextInput
+          style={styles.inputBox}
+          placeholder="Enter Your Name"
+          value={name}
+          onChangeText={value => setName(value)}
+        />
         <TextInput
           style={styles.inputBox}
           placeholder="Enter Your Email"
