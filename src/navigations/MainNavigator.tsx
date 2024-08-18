@@ -9,6 +9,35 @@ import HomeScreen from '../screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
+function AuthNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={SignupScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function AppNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function MainNavigator() {
   const [isUserLogin, setIsUserLogin] = useState(false);
 
@@ -22,28 +51,7 @@ function MainNavigator() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {!isUserLogin ? (
-          <Stack.Group>
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Signup"
-              component={SignupScreen}
-              options={{ headerShown: false }}
-            />
-          </Stack.Group>
-        ) : (
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
-        )}
-      </Stack.Navigator>
+      {isUserLogin ? <AppNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 }

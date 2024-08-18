@@ -22,7 +22,7 @@ export default function HomeScreen() {
         }}
         onPress={async () => {
           await Auth().signOut();
-          navigation.navigate('Login');
+          // No need to navigate manually; the MainNavigator will handle it
         }}
       >
         <Text style={{ color: '#fff' }}>Logout</Text>
