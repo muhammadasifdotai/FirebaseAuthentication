@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   StatusBar,
   Alert,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
 export default function SignupScreen() {
@@ -17,7 +17,6 @@ export default function SignupScreen() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  //
   const navigation = useNavigation();
 
   const handleSignup = async () => {
@@ -28,15 +27,21 @@ export default function SignupScreen() {
           password,
         );
 
+        await auth().currentUser?.sendEmailVerification()
+
+        await auth().signOut()
+
         console.log(isUserCreated);
 
+        Alert.alert('please verify your email')
+
+        // Navigate to the Login screen
         navigation.navigate('Login');
       } else {
         Alert.alert('Please Enter All Data');
       }
     } catch (err) {
       console.log(err);
-
       setMessage(err.message);
     }
   };
@@ -45,27 +50,28 @@ export default function SignupScreen() {
     <View style={styles.container}>
       <StatusBar hidden={true} />
       <View>
-        <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>
+        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>
           Metahub
         </Text>
         <TextInput
           style={styles.inputBox}
           placeholder="Enter Your Email"
           value={email}
-          onChangeText={value => setEmail(value)}
+          onChangeText={(value) => setEmail(value)}
         />
         <TextInput
           style={styles.inputBox}
           placeholder="Enter Your Password"
           value={password}
-          onChangeText={value => setPassword(value)}
+          onChangeText={(value) => setPassword(value)}
           secureTextEntry={true}
         />
 
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => handleSignup()}>
-          <Text style={{color: '#fff'}}>Signup</Text>
+          onPress={handleSignup}
+        >
+          <Text style={{ color: '#fff' }}>Signup</Text>
         </TouchableOpacity>
 
         <Text>{message}</Text>
@@ -74,15 +80,16 @@ export default function SignupScreen() {
           style={styles.signup}
           onPress={() => {
             navigation.navigate('Login');
-          }}>
-          <Text style={{color: 'blue'}}>Already Have An Account ?</Text>
+          }}
+        >
+          <Text style={{ color: 'blue' }}>Already Have An Account?</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-const {height, width} = Dimensions.get('screen');
+const { height, width } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {

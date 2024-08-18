@@ -23,16 +23,27 @@ export default function LoginScreen() {
   const handleLogin = async () => {
     try {
       if (email.length > 0 && password.length > 0) {
-        const isUserLogin = await auth().signInWithEmailAndPassword(
+        const user = await auth().signInWithEmailAndPassword(
           email,
           password,
-        );
-        setMessage('');
-        console.log(isUserLogin);
+         );
+         console.log(user)
 
-        navigation.dispatch(StackActions.replace('Home'));
+         if(user.user.emailVerified) {
+          Alert.alert('Your are verified')
+         } else {
+          Alert.alert('Verify your email.')
+
+        await auth().currentUser?.sendEmailVerification()
+        await auth().signOut()
+         }
+        // setMessage('');
+        // console.log(isUserLogin);
+
+        // navigation.dispatch(StackActions.replace('Home'));
       } else {
         Alert.alert('Please Enter All Data');
+        // iger us nay abhi tak email verify nhi kya to usay dobara email send kro.
       }
     } catch (err) {
       console.log(err);
