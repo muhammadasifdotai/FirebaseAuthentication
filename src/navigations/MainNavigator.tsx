@@ -6,6 +6,7 @@ import Auth from '@react-native-firebase/auth';
 import SignupScreen from '../screens/SignupScreen';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
+import MobileVerifyScreen from '../screens/MobileVerifyScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,7 +52,13 @@ function MainNavigator() {
 
   return (
     <NavigationContainer>
-      {isUserLogin ? <AppNavigator /> : <AuthNavigator />}
+      <Stack.Navigator>
+        <Stack.Screen
+          name="mobileverification"
+          component={MobileVerifyScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
