@@ -7,11 +7,9 @@ import {
   Dimensions,
   TouchableOpacity,
   StatusBar,
-  FlatList,
   Alert,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-// import database from '@react-native-firebase/database';
+import {useNavigation, StackActions} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
 export default function LoginScreen() {
@@ -24,20 +22,18 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     try {
-      // console.log('email:', email, 'password:', password)
-      const isUserLogin = await auth().signInWithEmailAndPassword(
-        email,
-        password,
-      );
-      setMessage(''); // yaha ya error message is leyee likha hay takay jasaiy hi user correct email and password enter kry to error message na show ho.
-      console.log(isUserLogin);
+      if (email.length > 0 && password.length > 0) {
+        const isUserLogin = await auth().signInWithEmailAndPassword(
+          email,
+          password,
+        );
+        setMessage('');
+        console.log(isUserLogin);
 
-      // navigation: may object ki form may wo data pass kya hay jo hum aik screen say dorsari screen pr bhejana chahaty hay.
-      // 'isUserLogin': wo hay jis may login or password jo backend say (firebase say ayee hay save ho gayee hay)
-      navigation.navigate('Home', {
-        email: isUserLogin.user.email, 
-        uid: isUserLogin.user.uid,
-      });
+        navigation.dispatch(StackActions.replace('Home'));
+      } else {
+        Alert.alert('Please Enter All Data');
+      }
     } catch (err) {
       console.log(err);
 
@@ -72,7 +68,7 @@ export default function LoginScreen() {
           <Text style={{color: '#fff'}}>Login</Text>
         </TouchableOpacity>
 
-        <Text style={styles.text}>{message}</Text>
+        <Text>{message}</Text>
 
         <TouchableOpacity
           style={styles.signup}
@@ -110,8 +106,4 @@ const styles = StyleSheet.create({
   signup: {
     alignItems: 'center',
   },
-  text: {
-    color: 'red',
-    margin: 15,
-  }
 });

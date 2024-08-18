@@ -7,10 +7,8 @@ import {
   Dimensions,
   TouchableOpacity,
   StatusBar,
-  FlatList,
   Alert,
 } from 'react-native';
-// import database from '@react-native-firebase/database';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
@@ -24,14 +22,18 @@ export default function SignupScreen() {
 
   const handleSignup = async () => {
     try {
-      const isUserCreated = await auth().createUserWithEmailAndPassword(
-        email,
-        password,
-      );
+      if (email.length > 0 && password.length > 0) {
+        const isUserCreated = await auth().createUserWithEmailAndPassword(
+          email,
+          password,
+        );
 
-      console.log(isUserCreated);
+        console.log(isUserCreated);
 
-      navigation.navigate('Login');
+        navigation.navigate('Login');
+      } else {
+        Alert.alert('Please Enter All Data');
+      }
     } catch (err) {
       console.log(err);
 
