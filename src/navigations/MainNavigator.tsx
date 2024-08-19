@@ -7,6 +7,7 @@ import SignupScreen from '../screens/SignupScreen';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MobileVerifyScreen from '../screens/MobileVerifyScreen';
+import ImageUpload from '../screens/ImageUpload';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,16 @@ function AppNavigator() {
         component={HomeScreen}
         options={{ headerShown: false }}
       />
+      {/* <Stack.Screen
+          name="mobileverification"
+          component={MobileVerifyScreen}
+          options={{headerShown: false}}
+        /> */}
+        <Stack.Screen
+          name="ImageUpload"
+          component={ImageUpload}
+          options={{headerShown: false}}
+        />
     </Stack.Navigator>
   );
 }
@@ -52,13 +63,7 @@ function MainNavigator() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="mobileverification"
-          component={MobileVerifyScreen}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
+        {isUserLogin ? <AppNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 }

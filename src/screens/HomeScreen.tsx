@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Button } from 'react-native';
 import Auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,6 +8,10 @@ export default function HomeScreen() {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button
+        title="Profile"
+        onPress={() => navigation.navigate('ImageUpload')}
+      />
       <Text>Email: {Auth().currentUser.email}</Text>
       <Text>UID: {Auth().currentUser.uid} </Text>
 
