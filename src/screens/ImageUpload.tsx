@@ -1,3 +1,5 @@
+// SelectImage/CaptureImage/UploadImage/DeleteImage
+
 import {View, Text, Button, Image, Alert} from 'react-native';
 import React, {useState} from 'react';
 import DocumentPicker from 'react-native-document-picker';
