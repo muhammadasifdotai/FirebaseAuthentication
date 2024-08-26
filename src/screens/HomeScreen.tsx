@@ -12,6 +12,12 @@ export default function HomeScreen() {
         title="Profile"
         onPress={() => navigation.navigate('ImageUpload')}
       />
+      <View style={{margin: 11,}}>
+      <Button
+        title="UserData"
+        onPress={() => navigation.navigate('UserData')}
+      />
+      </View>
       <Text>Email: {Auth().currentUser.email}</Text>
       <Text>UID: {Auth().currentUser.uid} </Text>
 

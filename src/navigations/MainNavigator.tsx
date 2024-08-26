@@ -8,6 +8,7 @@ import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MobileVerifyScreen from '../screens/MobileVerifyScreen';
 import ImageUpload from '../screens/ImageUpload';
+import UserData from '../screens/UserData';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,11 @@ function AppNavigator() {
         <Stack.Screen
           name="ImageUpload"
           component={ImageUpload}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="UserData"
+          component={UserData}
           options={{headerShown: false}}
         />
     </Stack.Navigator>
