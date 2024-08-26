@@ -14,7 +14,8 @@ export default function ImageUpload() {
         // This code ensures that only images can be selected. 
         // 'cachesDirectory' ensures that a duplicate copy of the selected image is stored.
         // The path of this copy will be used in the upload process.
-        type: [DocumentPicker.types.images],
+        // type: [DocumentPicker.types.images], // for uploading single image
+        type: [DocumentPicker.types.allFiles], // for uploading single video
         copyTo: 'cachesDirectory',
       });
       console.log(response);
